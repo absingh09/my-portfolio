@@ -521,7 +521,7 @@ const Hero = () => {
               {/* Non-count stat */}
               <div className="flex flex-col gap-0.5">
                 <div className="font-display font-black text-2xl leading-none gradient-text">📍</div>
-                <div className="font-sans text-xs text-text-muted font-medium">Noida, India</div>
+                <div className="font-sans text-xs text-text-muted font-medium">New Delhi, India</div>
               </div>
             </motion.div>
           </div>

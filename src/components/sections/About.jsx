@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import CountUpRaw from "react-countup";
 const CountUp = typeof CountUpRaw === "function" ? CountUpRaw : (CountUpRaw.default || (() => null));
 import { useInView as useIOInView } from "react-intersection-observer";
-import { FiDownload, FiMessageCircle, FiCode, FiZap, FiGlobe, FiBriefcase } from "react-icons/fi";
+import { FiMessageCircle, FiCode, FiZap, FiGlobe, FiBriefcase } from "react-icons/fi";
 import { SOCIAL_LINKS } from "../../utils/constants";
 
 /* ─────────────────────────────────────────────────────────
@@ -351,7 +351,7 @@ const About = () => {
               <p className="font-sans text-text-muted text-sm md:text-[15px] leading-[1.8]">
                 I'm <span className="text-white font-semibold">Deepak Singh</span>, a passionate
                 web developer and AI engineer based in{" "}
-                <span className="text-primary font-medium">Noida, India</span>. I don't just write
+                <span className="text-primary font-medium">New Delhi, India</span>. I don't just write
                 code — I build bridges between technology and business growth. Every project I take
                 on starts with a simple question: <em className="text-white not-italic font-medium">
                 "How does this move the needle for your business?"</em>
@@ -430,34 +430,6 @@ const About = () => {
               >
                 <FiMessageCircle size={16} />
                 Let's Connect
-              </motion.a>
-
-              {/* Download CV — ghost */}
-              <motion.a
-                href="#"
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={e => {
-                  e.preventDefault();
-                  window.open(`https://wa.me/917011875494?text=${encodeURIComponent("Hi Deepak! Could you please share your CV/resume?")}`, "_blank");
-                }}
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full font-sans font-semibold text-sm text-primary"
-                style={{
-                  background: "transparent",
-                  border: "1px solid rgba(192,193,255,0.3)",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = "rgba(192,193,255,0.65)";
-                  e.currentTarget.style.background  = "rgba(192,193,255,0.07)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = "rgba(192,193,255,0.3)";
-                  e.currentTarget.style.background  = "transparent";
-                }}
-              >
-                <FiDownload size={16} />
-                Download CV
               </motion.a>
             </motion.div>
           </motion.div>

@@ -270,7 +270,7 @@ export const CONTACT_INFO = {
   phone: "+91 70118 75494",
   whatsapp: "+917011875494",
   email: "deepakwebstudio@gmail.com",
-  location: "Noida, Uttar Pradesh, India",
+  location: "New Delhi, Delhi, India",
   availability: "Mon – Sat, 9 AM – 8 PM IST",
 };
 

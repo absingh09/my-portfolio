@@ -65,7 +65,7 @@ const SOCIAL_ITEMS = [
 const CONTACT_ITEMS = [
   { icon: FiPhone,   value: CONTACT_INFO.phone,        href: SOCIAL_LINKS.whatsapp, sub: "Call or WhatsApp" },
   { icon: FiMail,    value: CONTACT_INFO.email,         href: SOCIAL_LINKS.email,    sub: "Email me directly" },
-  { icon: FiMapPin,  value: "Noida, India",              href: null,                  sub: "Remote worldwide" },
+  { icon: FiMapPin,  value: "New Delhi, India",              href: null,                  sub: "Remote worldwide" },
   { icon: FiClock,   value: "Mon–Sat, 9AM–8PM IST",     href: null,                  sub: "Available now" },
 ];
 
@@ -432,7 +432,7 @@ const Footer = () => {
           <p className="font-sans text-text-muted text-xs flex items-center gap-1.5">
             Crafted with{" "}
             <FiHeart className="text-primary animate-pulse" size={11} aria-hidden />{" "}
-            in Noida, India
+            in New Delhi, India
           </p>
         </div>
       </motion.div>

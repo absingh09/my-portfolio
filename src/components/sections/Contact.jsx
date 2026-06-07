@@ -29,7 +29,7 @@ const INFO_ITEMS = [
   {
     icon: FiMapPin,
     label: "Location",
-    value: "Noida, Uttar Pradesh, India",
+    value: "New Delhi, Delhi, India",
     sub: "Available for remote projects worldwide",
     href: null,
     color: "#67e8f9",
