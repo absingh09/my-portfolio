@@ -16,7 +16,7 @@ const PROJECTS = [
     accent: "#f97316",
     accentDark: "#c2410c",
     accentLight: "rgba(249,115,22,",
-    liveUrl: "#",
+    liveUrl: "https://ironpeak-fitness-showcase.vercel.app/",
     // Visual design tokens
     visual: {
       bg: "linear-gradient(145deg, #0f0500 0%, #1a0800 40%, #2d0f00 100%)",
@@ -39,7 +39,7 @@ const PROJECTS = [
     accent: "#f59e0b",
     accentDark: "#92400e",
     accentLight: "rgba(245,158,11,",
-    liveUrl: "#",
+    liveUrl: "https://saffron-smoke-demo.vercel.app/",
     visual: {
       bg: "linear-gradient(145deg, #0d0800 0%, #1a1000 40%, #2d1f00 100%)",
       headerBg: "linear-gradient(90deg, #f59e0b 0%, #d97706 100%)",
@@ -61,7 +61,7 @@ const PROJECTS = [
     accent: "#ec4899",
     accentDark: "#9d174d",
     accentLight: "rgba(236,72,153,",
-    liveUrl: "#",
+    liveUrl: "https://radhika-salons-brown.vercel.app/",
     visual: {
       bg: "linear-gradient(145deg, #0d0009 0%, #1a0012 40%, #2d0020 100%)",
       headerBg: "linear-gradient(90deg, #ec4899 0%, #a21caf 100%)",
@@ -83,7 +83,7 @@ const PROJECTS = [
     accent: "#06b6d4",
     accentDark: "#0e7490",
     accentLight: "rgba(6,182,212,",
-    liveUrl: "#",
+    liveUrl: "https://medicare-plus-showcase.vercel.app/",
     visual: {
       bg: "linear-gradient(145deg, #00080d 0%, #001018 40%, #001f2d 100%)",
       headerBg: "linear-gradient(90deg, #06b6d4 0%, #0284c7 100%)",
@@ -105,7 +105,7 @@ const PROJECTS = [
     accent: "#d4a848",
     accentDark: "#92400e",
     accentLight: "rgba(212,168,72,",
-    liveUrl: "#",
+    liveUrl: "https://eternal-moments-showcase.vercel.app/",
     visual: {
       bg: "linear-gradient(145deg, #0d0a00 0%, #1a1400 40%, #261d00 100%)",
       headerBg: "linear-gradient(90deg, #d4a848 0%, #c084fc 100%)",
@@ -127,7 +127,7 @@ const PROJECTS = [
     accent: "#10b981",
     accentDark: "#065f46",
     accentLight: "rgba(16,185,129,",
-    liveUrl: "#",
+    liveUrl: "https://brightmind-demo-showcase.vercel.app/",
     visual: {
       bg: "linear-gradient(145deg, #000d08 0%, #001a10 40%, #002618 100%)",
       headerBg: "linear-gradient(90deg, #10b981 0%, #3b82f6 100%)",
@@ -149,7 +149,7 @@ const PROJECTS = [
     accent: "#94a3b8",
     accentDark: "#1e293b",
     accentLight: "rgba(148,163,184,",
-    liveUrl: "#",
+    liveUrl: "https://prestige-properties-showcase.vercel.app",
     visual: {
       bg: "linear-gradient(145deg, #050a0f 0%, #0a1520 40%, #0f2035 100%)",
       headerBg: "linear-gradient(90deg, #64748b 0%, #d4a848 100%)",
@@ -244,7 +244,7 @@ const ProjectVisual = ({ visual, title, accent, accentLight }) => {
           </svg>
         </div>
         {/* Pink sparkles */}
-        {[[15,20],[80,15],[10,70],[85,75],[45,10]].map(([x,y], i) => (
+        {[[15, 20], [80, 15], [10, 70], [85, 75], [45, 10]].map(([x, y], i) => (
           <div key={i} className="absolute text-xs" style={{ left: `${x}%`, top: `${y}%`, color: accent, opacity: 0.5 }}>✦</div>
         ))}
         {/* Wavy decorative line */}
@@ -273,13 +273,13 @@ const ProjectVisual = ({ visual, title, accent, accentLight }) => {
           </svg>
         </div>
         {/* Stat boxes */}
-        {["98%","4.9★","24/7"].map((v, i) => (
+        {["98%", "4.9★", "24/7"].map((v, i) => (
           <div key={i} className="absolute text-center" style={{
             top: "10%", left: `${12 + i * 32}%`,
             fontSize: "9px", color: accent, fontFamily: "sans-serif", fontWeight: "bold", opacity: 0.5,
           }}>
             <div style={{ fontSize: "13px" }}>{v}</div>
-            <div style={{ opacity: 0.6 }}>{["Success","Rating","Support"][i]}</div>
+            <div style={{ opacity: 0.6 }}>{["Success", "Rating", "Support"][i]}</div>
           </div>
         ))}
       </>
@@ -295,7 +295,7 @@ const ProjectVisual = ({ visual, title, accent, accentLight }) => {
           </svg>
         </div>
         {/* Floating hearts */}
-        {[[20,15],[75,20],[10,65],[85,60],[50,8]].map(([x,y], i) => (
+        {[[20, 15], [75, 20], [10, 65], [85, 60], [50, 8]].map(([x, y], i) => (
           <div key={i} className="absolute text-sm" style={{ left: `${x}%`, top: `${y}%`, color: accent, opacity: 0.35 }}>♥</div>
         ))}
         {/* Petal dots arc */}
@@ -344,12 +344,12 @@ const ProjectVisual = ({ visual, title, accent, accentLight }) => {
       <>
         {/* Building skyline */}
         <div className="absolute bottom-0 left-0 right-0 h-24 flex items-end justify-center gap-1 opacity-[0.12] px-2">
-          {[28,50,38,60,32,42,25,55,30].map((h, i) => (
+          {[28, 50, 38, 60, 32, 42, 25, 55, 30].map((h, i) => (
             <div key={i} className="flex-1 rounded-t-sm" style={{ height: `${h}%`, background: accent }} />
           ))}
         </div>
         {/* Location pins */}
-        {[[30,25],[65,35],[50,20]].map(([x,y], i) => (
+        {[[30, 25], [65, 35], [50, 20]].map(([x, y], i) => (
           <div key={i} className="absolute text-lg" style={{ left: `${x}%`, top: `${y}%`, color: accent, opacity: 0.4 }}>📍</div>
         ))}
         {/* Price tag */}
@@ -412,7 +412,7 @@ const ProjectVisual = ({ visual, title, accent, accentLight }) => {
       <div className="absolute" style={{ top: "85px", left: 0, right: 0, bottom: 0 }}>
         {/* Shape-specific decoration */}
         {shapes[visual.shapes]}
-        
+
         {/* Card row at bottom */}
         <div className="absolute bottom-3 left-3 right-3 flex gap-1.5">
           {visual.bars.map((color, i) => (
@@ -725,10 +725,10 @@ const Works = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
-  const ctaRef     = useRef(null);
+  const ctaRef = useRef(null);
 
   const headingInView = useInView(headingRef, { once: true, margin: "-80px" });
-  const ctaInView     = useInView(ctaRef,     { once: true, margin: "-60px" });
+  const ctaInView = useInView(ctaRef, { once: true, margin: "-60px" });
 
   const filtered = activeFilter === "All"
     ? PROJECTS
