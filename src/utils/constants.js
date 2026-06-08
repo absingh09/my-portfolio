@@ -69,7 +69,7 @@ export const WORKS = [
     accentColor: "#f97316",
     emoji: "💪",
     features: ["Membership CTA", "Class schedule", "Trainer profiles", "Animated stats"],
-    liveUrl: "#",
+    liveUrl: "https://ironpeak-fitness-showcase.vercel.app/",
     status: "Live Demo",
   },
   {
@@ -83,7 +83,7 @@ export const WORKS = [
     accentColor: "#f59e0b",
     emoji: "🍽️",
     features: ["Online reservations", "Menu showcase", "Chef stories", "Gallery"],
-    liveUrl: "#",
+    liveUrl: "https://saffron-smoke-demo.vercel.app/",
     status: "Live Demo",
   },
   {
@@ -97,7 +97,7 @@ export const WORKS = [
     accentColor: "#ec4899",
     emoji: "✂️",
     features: ["Online booking", "Service menu", "Before/after gallery", "Stylist profiles"],
-    liveUrl: "#",
+    liveUrl: "https://radhika-salons-brown.vercel.app/",
     status: "Live Demo",
   },
   {
@@ -111,7 +111,7 @@ export const WORKS = [
     accentColor: "#06b6d4",
     emoji: "🏥",
     features: ["Doctor directory", "Appointment booking", "Departments", "Health blog"],
-    liveUrl: "#",
+    liveUrl: "https://medicare-plus-showcase.vercel.app",
     status: "Live Demo",
   },
   {
@@ -125,7 +125,7 @@ export const WORKS = [
     accentColor: "#8b5cf6",
     emoji: "💍",
     features: ["Photo galleries", "Packages", "Venue showcase", "Testimonials"],
-    liveUrl: "#",
+    liveUrl: "https://eternal-moments-showcase.vercel.app",
     status: "Live Demo",
   },
   {
@@ -139,7 +139,7 @@ export const WORKS = [
     accentColor: "#10b981",
     emoji: "🎓",
     features: ["Course catalog", "Instructor profiles", "Success stats", "Enrollment flow"],
-    liveUrl: "#",
+    liveUrl: "https://brightmind-demo-showcase.vercel.app",
     status: "Live Demo",
   },
   {
@@ -153,7 +153,7 @@ export const WORKS = [
     accentColor: "#3b82f6",
     emoji: "🏡",
     features: ["Property listings", "Map search", "Agent profiles", "Mortgage calculator"],
-    liveUrl: "#",
+    liveUrl: "https://prestige-properties-showcase.vercel.app/",
     status: "Live Demo",
   },
 ];
@@ -258,8 +258,8 @@ export const STATS = [
 export const SOCIAL_LINKS = {
   whatsapp: "https://wa.me/917011875494",
   email: "mailto:deepakwebstudio@gmail.com",
-  github: "https://github.com/deepakwebstudio",
-  linkedin: "https://linkedin.com/in/deepakwebstudio",
+  github: "https://github.com/CodeWithDks",
+  linkedin: "https://www.linkedin.com/in/deepaksinghai",
   instagram: "https://instagram.com/deepakwebstudio",
 };
 
