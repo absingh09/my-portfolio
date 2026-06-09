@@ -7,7 +7,6 @@ import CountUpRaw from "react-countup";
 const CountUp = typeof CountUpRaw === "function" ? CountUpRaw : (CountUpRaw.default || (() => null));
 import { useInView } from "react-intersection-observer";
 import { SOCIAL_LINKS } from "../../utils/constants";
-import boyImage from "../assets/boy.png"; // adjust path if needed
 
 /* ════════════════════════════════════════════════
    PARTICLE CANVAS
@@ -237,13 +236,9 @@ const HeroAvatar = () => {
         <div className="w-full h-full bg-gradient-to-br from-surface via-surface-2 to-background flex items-center justify-center">
           {/* Try loading boy.png — graceful fallback */}
           <img
-            src={boyImage}
+            src="/boy.png"
             alt="Deepak Singh"
             className="w-full h-full object-cover"
-            onError={(e) => {
-              e.target.style.display = "none";
-              e.target.nextSibling.style.display = "flex";
-            }}
           />
           {/* Fallback avatar */}
           <div
