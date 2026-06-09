@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView, LayoutGroup } from "framer-motion";
 import { FiExternalLink, FiInfo, FiArrowRight, FiX } from "react-icons/fi";
 
@@ -17,7 +17,23 @@ const PROJECTS = [
     accentDark: "#c2410c",
     accentLight: "rgba(249,115,22,",
     liveUrl: "https://ironpeak-fitness-showcase.vercel.app/",
-    // Visual design tokens
+    type: "Conceptual Showcase",
+    concept: "High-energy fitness studio platform featuring animated interactive schedules, trainer profiles, and responsive pricing grids.",
+    techAchievements: [
+      "Smooth multi-stage animation timelines using Framer Motion",
+      "Interactive class schedule filtering built in client-side React",
+      "Dynamic custom canvas elements and lightweight graphics"
+    ],
+    uxDesign: [
+      "High-contrast typography styling matching energetic fitness branding",
+      "Mobile-optimized booking actions for simplified user paths",
+      "Responsive typography with focus-visible elements"
+    ],
+    performanceA11y: [
+      "Lightweight graphics reducing page asset load times",
+      "Fully accessible schedules with keyboard navigation layout",
+      "Code split components list reducing initial bundle weight"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #0f0500 0%, #1a0800 40%, #2d0f00 100%)",
       headerBg: "linear-gradient(90deg, #f97316 0%, #dc2626 100%)",
@@ -40,6 +56,23 @@ const PROJECTS = [
     accentDark: "#92400e",
     accentLight: "rgba(245,158,11,",
     liveUrl: "https://saffron-smoke-demo.vercel.app/",
+    type: "Conceptual Showcase",
+    concept: "Cinematic fine-dining restaurant platform showcasing menus, reservation layouts, and chef profiles.",
+    techAchievements: [
+      "Sophisticated CSS Grid layouts with multi-layered overlays",
+      "Custom calendar mockup picker state validation in React",
+      "Interactive menu tab system with smooth fade transitions"
+    ],
+    uxDesign: [
+      "Atmospheric typography pairing serif headings with clean sans text",
+      "High-fidelity grid structures with large photographic frames",
+      "Intuitive reservation layout for high clarity"
+    ],
+    performanceA11y: [
+      "Graceful image placeholder loading states",
+      "Screen-reader landmarks for accessibility compliance",
+      "Clean structural HTML markup without layout shifts"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #0d0800 0%, #1a1000 40%, #2d1f00 100%)",
       headerBg: "linear-gradient(90deg, #f59e0b 0%, #d97706 100%)",
@@ -62,6 +95,23 @@ const PROJECTS = [
     accentDark: "#9d174d",
     accentLight: "rgba(236,72,153,",
     liveUrl: "https://radhika-salons-brown.vercel.app/",
+    type: "Conceptual Showcase",
+    concept: "Luxury unisex salon platform demonstrating service booking grids, stylist profiles, and visually rich transformations gallery.",
+    techAchievements: [
+      "Custom category selector tab system using state mapping",
+      "Touch-friendly visual action nodes designed for mobile use",
+      "Interactive appointment modal flow states"
+    ],
+    uxDesign: [
+      "Chic pastel color consistency evoking luxury aesthetic",
+      "Balanced whitespace for ease of browsing and relaxation",
+      "Highly detailed price listing layout with categorized folders"
+    ],
+    performanceA11y: [
+      "Fully responsive touch hit-boxes for touch devices",
+      "ARIA tags indicating dynamic tab state changes",
+      "Compressed SVG assets optimization to enhance response speed"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #0d0009 0%, #1a0012 40%, #2d0020 100%)",
       headerBg: "linear-gradient(90deg, #ec4899 0%, #a21caf 100%)",
@@ -84,6 +134,23 @@ const PROJECTS = [
     accentDark: "#0e7490",
     accentLight: "rgba(6,182,212,",
     liveUrl: "https://medicare-plus-showcase.vercel.app/",
+    type: "Conceptual Showcase",
+    concept: "Trustworthy multi-specialty clinic portal featuring doctor profiles, health packages, and appointment booking.",
+    techAchievements: [
+      "Doctor directory filter algorithm operating client-side",
+      "Structured dynamic FAQs mapping system for clinic inquiries",
+      "Modular state-bound appointment booking fields"
+    ],
+    uxDesign: [
+      "Calming cyan and blue palettes building authority and trust",
+      "Clear, legible layouts prioritizing quick emergency actions",
+      "Accessible information density designed for diverse audiences"
+    ],
+    performanceA11y: [
+      "Strict WCAG accessibility standards compliance",
+      "Semantic landmarks for easy navigation flow",
+      "Light bundle footprint optimized for cellular networks"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #00080d 0%, #001018 40%, #001f2d 100%)",
       headerBg: "linear-gradient(90deg, #06b6d4 0%, #0284c7 100%)",
@@ -106,6 +173,23 @@ const PROJECTS = [
     accentDark: "#92400e",
     accentLight: "rgba(212,168,72,",
     liveUrl: "https://eternal-moments-showcase.vercel.app/",
+    type: "Conceptual Showcase",
+    concept: "Ultra-romantic wedding planning portfolio with masonry photo gallery, packages overview, and consultation setup.",
+    techAchievements: [
+      "Responsive fluid masonry layout script",
+      "Framer Motion layout transition loops for gallery elements",
+      "Minimal form payload states for consultation enquiries"
+    ],
+    uxDesign: [
+      "Elegant Playfair Display serif headings paired with Inter sans-serif",
+      "Immersive, clean editorial spacing layout styling",
+      "Visual focus on high-fidelity design aesthetics"
+    ],
+    performanceA11y: [
+      "Responsive images loaded dynamically based on screens",
+      "Accessible layout structures using HTML5 semantic elements",
+      "Optimal DOM node hierarchy preventing rendering lag"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #0d0a00 0%, #1a1400 40%, #261d00 100%)",
       headerBg: "linear-gradient(90deg, #d4a848 0%, #c084fc 100%)",
@@ -128,6 +212,23 @@ const PROJECTS = [
     accentDark: "#065f46",
     accentLight: "rgba(16,185,129,",
     liveUrl: "https://brightmind-demo-showcase.vercel.app/",
+    type: "Conceptual Showcase",
+    concept: "EdTech and coaching portal with dynamic course catalogs, instructor profiles, and enrollment flows.",
+    techAchievements: [
+      "Animated success indicators using progress circles",
+      "Client-side course search and category filter controls",
+      "Dynamic badge layout system with status pills"
+    ],
+    uxDesign: [
+      "Academic color theory (green/blue) indicating focus and growth",
+      "Structured lesson maps offering readable study paths",
+      "Prominent success rate metrics for fast visual scan"
+    ],
+    performanceA11y: [
+      "Screen reader alerts for dynamic listing updates",
+      "Keyboard-accessible course details accordion",
+      "Highly performant page weight optimized for quick load"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #000d08 0%, #001a10 40%, #002618 100%)",
       headerBg: "linear-gradient(90deg, #10b981 0%, #3b82f6 100%)",
@@ -150,6 +251,23 @@ const PROJECTS = [
     accentDark: "#1e293b",
     accentLight: "rgba(148,163,184,",
     liveUrl: "https://prestige-properties-showcase.vercel.app",
+    type: "Conceptual Showcase",
+    concept: "Premium real estate listings portal featuring property searches, EMI home loan calculators, and agent connections.",
+    techAchievements: [
+      "Dynamic client-side EMI calculator math engine in React",
+      "Advanced multi-criteria property listing filters",
+      "Tab-based property specifications detail visual rendering"
+    ],
+    uxDesign: [
+      "Clean blueprint-like UI focusing on details and dimensions",
+      "Clear inputs formatting on the home loan calculation tool",
+      "One-click agent query flow layout"
+    ],
+    performanceA11y: [
+      "Intuitive form error feedback to prevent client frustration",
+      "Semantic landmarks for easy form field accessibility",
+      "Asset minification enabling instant render of visual listing"
+    ],
     visual: {
       bg: "linear-gradient(145deg, #050a0f 0%, #0a1520 40%, #0f2035 100%)",
       headerBg: "linear-gradient(90deg, #64748b 0%, #d4a848 100%)",
@@ -168,7 +286,7 @@ const FILTER_TABS = ["All", "Fitness", "Restaurant", "Salon", "Healthcare", "Edu
 /* ═══════════════════════════════════════════════════════════
    PROJECT VISUAL — CSS-crafted mini screenshot per project
 ═══════════════════════════════════════════════════════════ */
-const ProjectVisual = ({ visual, title, accent, accentLight }) => {
+const ProjectVisual = ({ visual, accent, accentLight }) => {
   const shapes = {
     fitness: (
       <>
@@ -463,7 +581,6 @@ const ProjectCard = ({ project, index }) => {
       <div className="relative overflow-hidden">
         <ProjectVisual
           visual={project.visual}
-          title={project.title}
           accent={project.accent}
           accentLight={project.accentLight}
         />
@@ -718,11 +835,198 @@ const CTAStrip = ({ inView }) => (
   </motion.div>
 );
 
+/* ── Project Details Modal Component ── */
+const ProjectDetailsModal = ({ project, onClose }) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.24 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/80 backdrop-blur-md overflow-y-auto"
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-2xl rounded-3xl overflow-hidden glass-card p-6 md:p-8 flex flex-col gap-6"
+        style={{
+          background: "linear-gradient(160deg, rgba(13,28,45,0.98) 0%, rgba(5,20,36,0.99) 100%)",
+          border: `1px solid ${project.accentLight}0.35)`,
+          boxShadow: `0 24px 64px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)`,
+          maxHeight: "90vh",
+        }}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center text-text-muted hover:text-white border border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 transition-all duration-200"
+          aria-label="Close details"
+        >
+          <FiX size={18} />
+        </button>
+
+        {/* Header */}
+        <div className="flex items-start gap-4 pr-10">
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+            style={{
+              background: `${project.accentLight}0.15)`,
+              border: `1px solid ${project.accentLight}0.25)`,
+            }}
+          >
+            {project.visual.emoji}
+          </div>
+          <div>
+            <span
+              className="inline-flex items-center px-2.5 py-0.5 rounded-full font-sans font-bold text-[9px] uppercase tracking-widest mb-1.5"
+              style={{
+                background: `${project.accentLight}0.2)`,
+                border: `1px solid ${project.accentLight}0.3)`,
+                color: project.accent,
+              }}
+            >
+              {project.category}
+            </span>
+            <h3 className="font-display font-bold text-white text-2xl leading-none">
+              {project.title}
+            </h3>
+          </div>
+        </div>
+
+        {/* Conceptual Notice */}
+        <div
+          className="px-4 py-3 rounded-2xl border text-xs font-sans text-text-muted flex items-start gap-2"
+          style={{
+            background: "rgba(192,193,255,0.03)",
+            borderColor: "rgba(192,193,255,0.1)",
+          }}
+        >
+          <span className="text-primary mt-0.5">ℹ️</span>
+          <span>
+            <strong>Showcase Concept:</strong> This is an independent demonstration platform designed and engineered to showcase high-fidelity UX flows and technical design patterns.
+          </span>
+        </div>
+
+        {/* Scrollable details */}
+        <div className="flex-1 overflow-y-auto space-y-6 pr-2 scrollbar-thin">
+          {/* Concept Overview */}
+          <div>
+            <h4 className="font-display font-semibold text-white text-sm mb-2 tracking-wide">
+              Overview
+            </h4>
+            <p className="font-sans text-text-muted text-sm leading-relaxed">
+              {project.concept}
+            </p>
+          </div>
+
+          {/* Deepak's Role */}
+          <div>
+            <h4 className="font-display font-semibold text-white text-sm mb-2 tracking-wide">
+              Developer Role & Execution
+            </h4>
+            <p className="font-sans text-text-muted text-sm leading-relaxed">
+              Deepak Singh executed the complete product lifecycle as the <strong>Founder & Principal Developer</strong>. This included initial architectural structure, UI design layouts, frontend web engineering, and performance auditing.
+            </p>
+          </div>
+
+          {/* Tech Achievements */}
+          <div>
+            <h4 className="font-display font-semibold text-white text-sm mb-2.5 tracking-wide">
+              Technical Achievements
+            </h4>
+            <ul className="space-y-2">
+              {project.techAchievements.map((item, i) => (
+                <li key={i} className="font-sans text-text-muted text-sm flex items-start gap-2.5">
+                  <span className="text-primary shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: project.accent }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* UX & Design */}
+          <div>
+            <h4 className="font-display font-semibold text-white text-sm mb-2.5 tracking-wide">
+              UX/UI & Design Decisions
+            </h4>
+            <ul className="space-y-2">
+              {project.uxDesign.map((item, i) => (
+                <li key={i} className="font-sans text-text-muted text-sm flex items-start gap-2.5">
+                  <span className="text-primary shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: project.accent }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Performance & Accessibility */}
+          <div>
+            <h4 className="font-display font-semibold text-white text-sm mb-2.5 tracking-wide">
+              Performance & Accessibility
+            </h4>
+            <ul className="space-y-2">
+              {project.performanceA11y.map((item, i) => (
+                <li key={i} className="font-sans text-text-muted text-sm flex items-start gap-2.5">
+                  <span className="text-primary shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: project.accent }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Footer Actions */}
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/[0.06] mt-auto">
+          <button
+            onClick={onClose}
+            className="px-5 py-2.5 rounded-full font-sans font-semibold text-xs text-white hover:bg-white/5 border border-white/10 transition-colors"
+          >
+            Close
+          </button>
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-sans font-bold text-xs text-background"
+            style={{
+              background: `linear-gradient(135deg, ${project.accent} 0%, ${project.accentDark} 100%)`,
+              boxShadow: `0 4px 16px ${project.accentLight}0.35)`,
+            }}
+          >
+            <FiExternalLink size={13} />
+            Live Preview
+          </a>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 /* ═══════════════════════════════════════════════════════════
    WORKS SECTION
 ═══════════════════════════════════════════════════════════ */
 const Works = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedProject, setSelectedProject] = useState(null);
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const ctaRef = useRef(null);
@@ -830,7 +1134,7 @@ const Works = () => {
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((project, i) => (
-                <ProjectCard key={project.id} project={project} index={i} />
+                <ProjectCard key={project.id} project={project} index={i} onSelect={setSelectedProject} />
               ))}
             </AnimatePresence>
           </motion.div>
@@ -841,6 +1145,16 @@ const Works = () => {
           <CTAStrip inView={ctaInView} />
         </div>
       </div>
+
+      {/* ── Project Details Modal ── */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetailsModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };

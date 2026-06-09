@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useEffect, useCallback } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { Link } from "react-scroll";
+
 import { FiArrowDown, FiMessageCircle, FiEye } from "react-icons/fi";
 import CountUpRaw from "react-countup";
 const CountUp = typeof CountUpRaw === "function" ? CountUpRaw : (CountUpRaw.default || (() => null));
@@ -264,7 +264,7 @@ const HeroAvatar = () => {
         className="absolute -top-4 -right-4 glass-card px-3 py-2 flex items-center gap-2 shadow-glow text-xs font-sans whitespace-nowrap z-20"
       >
         <span className="text-base">⚡</span>
-        <span className="text-white font-semibold">Full-Stack Dev</span>
+        <span className="text-white font-semibold">UX/UI Strategy</span>
       </motion.div>
 
       <motion.div
@@ -273,7 +273,7 @@ const HeroAvatar = () => {
         className="absolute -bottom-4 -left-4 glass-card px-3 py-2 flex items-center gap-2 text-xs font-sans whitespace-nowrap z-20"
       >
         <span className="text-base">🤖</span>
-        <span className="text-white font-semibold">AI Engineer</span>
+        <span className="text-white font-semibold">Web Engineering</span>
       </motion.div>
 
       <motion.div
@@ -282,7 +282,7 @@ const HeroAvatar = () => {
         className="absolute top-1/2 -translate-y-1/2 -right-8 glass-card px-3 py-2 flex items-center gap-2 text-xs font-sans whitespace-nowrap z-20"
       >
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-        <span className="text-emerald-400 font-semibold">Available</span>
+        <span className="text-emerald-400 font-semibold">Open for Projects</span>
       </motion.div>
     </motion.div>
   );
@@ -420,8 +420,7 @@ const Hero = () => {
                   👋
                 </motion.span>
                 <span className="font-sans text-sm font-medium text-white/90">
-                  Hi, I'm{" "}
-                  <span className="text-primary font-semibold">Deepak Singh</span>
+                  <span className="text-primary font-semibold">Deepak Singh</span> · Founder & Principal Developer
                 </span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </div>
@@ -438,13 +437,13 @@ const Hero = () => {
                 <div className="font-sans text-sm md:text-base text-text-muted leading-relaxed">
                   <TypeAnimation
                     sequence={[
-                      "I build Websites that attract clients 🌐",
+                      "We build websites that attract clients 🌐",
                       2400,
-                      "I create Landing Pages that convert visitors 🚀",
+                      "We create landing pages that convert visitors 🚀",
                       2400,
-                      "I design Portfolios that get you hired 💼",
+                      "We design portfolios that showcase your brand 💼",
                       2400,
-                      "I develop AI Chatbots that grow your business 🤖",
+                      "We develop AI chatbots that automate leads 🤖",
                       2400,
                     ]}
                     wrapper="span"
@@ -459,13 +458,12 @@ const Hero = () => {
 
             {/* 4. Subtitle */}
             <motion.p {...fadeUp(delays.subtitle)} className="font-sans text-text-muted text-sm md:text-base leading-relaxed max-w-lg">
-              Helping businesses across India establish a{" "}
-              <span className="text-white font-medium">powerful online presence</span>, attract more customers, and grow their revenue — through smart, modern digital solutions.
+              Helping businesses establish a powerful online presence, build customer trust, and scale their revenue through conversion-engineered digital platforms.
             </motion.p>
 
             {/* 5. Buttons */}
             <motion.div {...fadeUp(delays.buttons)} className="flex flex-wrap gap-3">
-              {/* View My Work */}
+              {/* View Our Work */}
               <button
                 onClick={() => document.getElementById("works")?.scrollIntoView({ behavior: "smooth" })}
                 className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full font-sans font-semibold text-sm text-background overflow-hidden
@@ -477,10 +475,10 @@ const Hero = () => {
                 {/* Shimmer sweep on hover */}
                 <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-600 pointer-events-none" />
                 <FiEye size={16} className="shrink-0" />
-                View My Work
+                View Our Work
               </button>
 
-              {/* Let's Talk — WhatsApp */}
+              {/* Book a Call — WhatsApp */}
               <a
                 href={SOCIAL_LINKS.whatsapp}
                 target="_blank"
@@ -492,7 +490,7 @@ const Hero = () => {
                   transition-all duration-300"
               >
                 <FiMessageCircle size={16} className="shrink-0" />
-                Let's Talk
+                Book a Call
                 <svg
                   className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
                   fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
@@ -511,7 +509,7 @@ const Hero = () => {
               {/* Stat items with vertical dividers */}
               {[
                 { value: 7, suffix: "+", label: "Projects Delivered" },
-                { value: 100, suffix: "%", label: "Client Focus" },
+                { value: 100, suffix: "%", label: "Client Success" },
               ].map((s, i) => (
                 <div key={s.label} className="flex items-center gap-0">
                   <StatItem {...s} inView={statsInView} delay={0.2 + i * 0.1} />

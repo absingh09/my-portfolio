@@ -4,7 +4,7 @@ import CountUpRaw from "react-countup";
 const CountUp = typeof CountUpRaw === "function" ? CountUpRaw : (CountUpRaw.default || (() => null));
 import { useInView as useIOInView } from "react-intersection-observer";
 import { FiMessageCircle, FiCode, FiZap, FiGlobe, FiBriefcase } from "react-icons/fi";
-import { SOCIAL_LINKS } from "../../utils/constants";
+
 
 /* ─────────────────────────────────────────────────────────
    STATS DATA
@@ -12,8 +12,8 @@ import { SOCIAL_LINKS } from "../../utils/constants";
 const STATS = [
   { value: 7,   suffix: "+",  label: "Projects Delivered", icon: "🚀" },
   { value: 5,   suffix: "+",  label: "Happy Clients",      icon: "😊" },
-  { value: 3,   suffix: "+",  label: "Years Coding",       icon: "💻" },
-  { value: 100, suffix: "%",  label: "Dedication",         icon: "🎯" },
+  { value: 3,   suffix: "+",  label: "Years Experience",   icon: "💻" },
+  { value: 100, suffix: "%",  label: "Client Success",     icon: "🎯" },
 ];
 
 /* ─────────────────────────────────────────────────────────
@@ -257,7 +257,6 @@ const About = () => {
   const contentRef   = useRef(null);
 
   const leftInView    = useInView(sectionRef, { once: true, margin: "-100px" });
-  const headingInView = useInView(headingRef,  { once: true, margin: "-60px" });
   const contentInView = useInView(contentRef,  { once: true, margin: "-60px" });
 
   /* CountUp trigger */
@@ -349,26 +348,14 @@ const About = () => {
             {/* Paragraphs */}
             <motion.div variants={itemVariants} className="space-y-4">
               <p className="font-sans text-text-muted text-sm md:text-[15px] leading-[1.8]">
-                I'm <span className="text-white font-semibold">Deepak Singh</span>, a passionate
-                web developer and AI engineer based in{" "}
-                <span className="text-primary font-medium">New Delhi, India</span>. I don't just write
-                code — I build bridges between technology and business growth. Every project I take
-                on starts with a simple question: <em className="text-white not-italic font-medium">
-                "How does this move the needle for your business?"</em>
+                <span className="text-white font-semibold">Deepak Web Studio</span> is an independent, founder-led digital studio based in{" "}
+                <span className="text-primary font-medium">New Delhi, India</span>. Directed by <span className="text-white font-semibold">Deepak Singh</span> as the Founder & Principal Developer, we design and engineer high-performance platforms that align with your strategic business goals. We don't just write code — we build digital assets that drive growth.
               </p>
               <p className="font-sans text-text-muted text-sm md:text-[15px] leading-[1.8]">
-                My philosophy is simple: every pixel, every line of code, every design decision
-                exists to serve your business goals — not just to look good. I obsess over
-                user experience, conversion flows, and performance because I know that{" "}
-                <span className="text-white font-medium">beautiful websites that don't perform
-                are expensive decorations</span>. Yours will do both.
+                Our philosophy is centered on clarity, speed, and business outcomes. Every visual detail, line of code, and conversion path is engineered to establish trust with your audience. As the lead developer, Deepak ensures that your platform is a high-yielding business asset rather than a decorative expense.
               </p>
               <p className="font-sans text-text-muted text-sm md:text-[15px] leading-[1.8]">
-                My mission is clear: to help{" "}
-                <span className="text-accent-cyan font-medium">Indian businesses</span> — from
-                local shops to growing startups — compete powerfully in the digital world. Whether
-                you're just starting out or scaling up, I'll give you the online presence your
-                business truly deserves.
+                Our mission is to help businesses compete and succeed in the digital world. Under Deepak's dedicated execution, we deliver custom web experiences that match the quality of large-scale agencies while offering the precision and communication of a dedicated founder-led partner.
               </p>
             </motion.div>
 

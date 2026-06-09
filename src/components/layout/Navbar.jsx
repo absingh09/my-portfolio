@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX, FiMessageCircle, FiZap } from "react-icons/fi";
-import { NAV_LINKS, SOCIAL_LINKS } from "../../utils/constants";
+import { SOCIAL_LINKS } from "../../utils/constants";
 
 /* ── Nav link data (overriding to match Part 2 spec exactly) */
 const NAV = [
@@ -132,7 +132,7 @@ const Navbar = () => {
                 transition-shadow duration-300"
             >
               <FiZap size={14} className="shrink-0" />
-              Hire Me
+              Book a Call
             </motion.a>
 
             {/* Hamburger */}
@@ -224,7 +224,7 @@ const Navbar = () => {
                   shadow-[0_4px_20px_rgba(192,193,255,0.25)]"
               >
                 <FiMessageCircle size={16} />
-                Hire Me on WhatsApp
+                Book a Call on WhatsApp
               </motion.a>
             </motion.div>
           </>

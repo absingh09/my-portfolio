@@ -64,7 +64,7 @@ const QuoteIcon = ({ color = "rgba(192,193,255,0.25)" }) => (
 );
 
 /* ── Testimonial Card ── */
-const TestimonialCard = ({ item, isActive }) => {
+const TestimonialCard = ({ item }) => {
   // Highlight key phrase in quote
   const renderQuote = (quote, highlight) => {
     if (!highlight) return quote;

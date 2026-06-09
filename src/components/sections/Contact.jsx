@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck, FiMessageCircle,
+  FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck,
 } from "react-icons/fi";
 
 /* ═══════════════════════════════════════════════════════════

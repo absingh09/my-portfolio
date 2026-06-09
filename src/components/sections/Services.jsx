@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
-import { SOCIAL_LINKS } from "../../utils/constants";
+
 
 /* ─────────────────────────────────────────────────────────
    SERVICE DATA
@@ -10,49 +10,49 @@ const SERVICES_DATA = [
   {
     id: 1,
     emoji: "🌐",
-    title: "Custom Business Websites",
+    title: "High-Performance Corporate Websites",
     description:
-      "Your website is your most powerful salesperson. I build fast, beautiful, mobile-first websites that work 24/7 to attract and convert clients.",
+      "Your website is your digital storefront. We engineer custom, high-speed, and conversion-optimized websites that turn visitors into loyal clients.",
     price: "Starting ₹8,000",
     badge: "Most Popular",
     badgeColor: "primary",
     accentColor: "rgba(192,193,255,",
     glowColor: "rgba(192,193,255,0.15)",
     borderGlow: "rgba(192,193,255,0.4)",
-    wa: "Hi Deepak! I'm interested in a Custom Business Website.",
+    wa: "Hi Deepak! I'm interested in a High-Performance Corporate Website.",
   },
   {
     id: 2,
     emoji: "🚀",
-    title: "High-Converting Landing Pages",
+    title: "Conversion-Optimized Landing Pages",
     description:
-      "One focused page. One clear goal. I design landing pages engineered to turn visitors into paying customers through psychology and design.",
+      "One clear message. One focused action. We design landing pages engineered to maximize conversions and generate high-quality leads.",
     price: "Starting ₹4,000",
     badge: null,
     accentColor: "rgba(103,232,249,",
     glowColor: "rgba(103,232,249,0.12)",
     borderGlow: "rgba(103,232,249,0.35)",
-    wa: "Hi Deepak! I'm interested in a High-Converting Landing Page.",
+    wa: "Hi Deepak! I'm interested in a Conversion-Optimized Landing Page.",
   },
   {
     id: 3,
     emoji: "💼",
-    title: "Personal & Business Portfolios",
+    title: "Premium Portfolios & Personal Brands",
     description:
-      "Your first impression online matters more than ever. I build portfolios that make decision-makers stop scrolling and start contacting.",
+      "Stand out in your industry. We build modern, elegant portfolio sites that establish credibility and showcase your expertise to decision-makers.",
     price: "Starting ₹5,000",
     badge: null,
     accentColor: "rgba(192,193,255,",
     glowColor: "rgba(192,193,255,0.12)",
     borderGlow: "rgba(192,193,255,0.35)",
-    wa: "Hi Deepak! I'm interested in a Portfolio Website.",
+    wa: "Hi Deepak! I'm interested in a Premium Portfolio Website.",
   },
   {
     id: 4,
     emoji: "🤖",
-    title: "AI-Powered Chatbots",
+    title: "AI Automation & Conversational Chatbots",
     description:
-      "Never miss a lead again. I integrate intelligent chatbots that engage your visitors, answer questions, and capture leads — even while you sleep.",
+      "Engage and qualify leads 24/7. We integrate intelligent, conversational AI agents that automate customer service and lead capture.",
     price: "Starting ₹6,000",
     badge: "AI-Powered",
     badgeColor: "cyan",
@@ -64,9 +64,9 @@ const SERVICES_DATA = [
   {
     id: 5,
     emoji: "🛒",
-    title: "E-Commerce Stores",
+    title: "Conversion-Focused E-Commerce",
     description:
-      "Turn your products into profits. I build online stores that are easy to manage and optimized for maximum sales.",
+      "Sell seamlessly online. We build high-converting online stores with secure payment flows, fast checkouts, and clean product discovery.",
     price: "Starting ₹12,000",
     badge: "Full-Stack",
     badgeColor: "primary",
@@ -78,15 +78,15 @@ const SERVICES_DATA = [
   {
     id: 6,
     emoji: "⚡",
-    title: "Performance & SEO",
+    title: "Speed & Search Engine Optimization",
     description:
-      "A beautiful website that no one finds is a wasted investment. I optimize your site to rank higher and load faster.",
+      "Get found, stay fast. We audit, accelerate, and optimize platforms for top Google rankings and frictionless user experiences.",
     price: "Starting ₹3,000",
     badge: null,
     accentColor: "rgba(103,232,249,",
     glowColor: "rgba(103,232,249,0.12)",
     borderGlow: "rgba(103,232,249,0.35)",
-    wa: "Hi Deepak! I'm interested in Performance & SEO Optimization.",
+    wa: "Hi Deepak! I'm interested in Speed & SEO Optimization.",
   },
 ];
 
@@ -237,7 +237,7 @@ const ServiceCard = ({ service, index }) => {
             className="inline-flex items-center gap-1.5 font-sans font-semibold text-xs transition-colors duration-300 group/link"
             style={{ color: hovered ? service.accentColor.replace(",", ",").replace("rgba(", "").split(",").length > 3 ? "#c0c1ff" : "#c0c1ff" : "#8892a4" }}
           >
-            Know More
+            Discuss Project
             <motion.span
               animate={hovered ? { x: [0, 4, 0] } : { x: 0 }}
               transition={{ duration: 0.6, repeat: hovered ? Infinity : 0 }}
@@ -377,7 +377,7 @@ const Services = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-sans font-semibold text-sm text-background bg-gradient-to-r from-primary to-primary-dark shadow-[0_4px_20px_rgba(192,193,255,0.3)] hover:shadow-[0_8px_36px_rgba(192,193,255,0.5)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            Let's Talk About Your Project
+            Discuss Your Project
             <FiArrowRight size={14} />
           </a>
         </motion.div>

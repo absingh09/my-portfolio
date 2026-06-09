@@ -173,7 +173,7 @@ const Footer = () => {
             className="font-display font-black text-white leading-tight mb-8"
             style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
           >
-            Let's Build Something{" "}
+            Let's Scale Your{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #c0c1ff 0%, #67e8f9 100%)",
@@ -182,7 +182,7 @@ const Footer = () => {
                 backgroundClip: "text",
               }}
             >
-              Amazing Together
+              Business Online
             </span>
           </motion.h2>
 
@@ -193,7 +193,7 @@ const Footer = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <motion.a
-              href={`https://wa.me/917011875494?text=${encodeURIComponent("Hi Deepak! I'd like to start a project with you.")}`}
+              href={`https://wa.me/917011875494?text=${encodeURIComponent("Hi Deepak! I'd like to discuss a project with you.")}`}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05, y: -2 }}
@@ -207,7 +207,7 @@ const Footer = () => {
               onMouseEnter={e => e.currentTarget.style.boxShadow = "0 12px 48px rgba(192,193,255,0.6)"}
               onMouseLeave={e => e.currentTarget.style.boxShadow = "0 6px 28px rgba(192,193,255,0.35)"}
             >
-              Start a Project
+              Discuss Your Project
               <FiArrowRight size={16} />
             </motion.a>
 
@@ -261,7 +261,7 @@ const Footer = () => {
                 </div>
               </Link>
               <p className="font-sans text-text-muted text-sm leading-relaxed max-w-xs">
-                Turning ideas into powerful digital experiences that grow your business — with clean code, beautiful design, and real results.
+                Engineering high-performance digital platforms that build credibility and drive measurable growth for your business.
               </p>
             </motion.div>
 
@@ -348,7 +348,7 @@ const Footer = () => {
                   className="font-sans text-primary text-sm font-semibold hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                 >
                   <span className="w-1 h-1 rounded-full bg-primary group-hover:bg-white transition-colors duration-300 shrink-0" />
-                  Hire Me ✨
+                  Book a Call ✨
                 </a>
               </motion.li>
             </ul>
