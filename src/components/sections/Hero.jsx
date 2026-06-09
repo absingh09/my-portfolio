@@ -7,13 +7,14 @@ import CountUpRaw from "react-countup";
 const CountUp = typeof CountUpRaw === "function" ? CountUpRaw : (CountUpRaw.default || (() => null));
 import { useInView } from "react-intersection-observer";
 import { SOCIAL_LINKS } from "../../utils/constants";
+import boyImage from "../assets/boy.png"; // adjust path if needed
 
 /* ════════════════════════════════════════════════
    PARTICLE CANVAS
 ════════════════════════════════════════════════ */
 const ParticleCanvas = () => {
   const canvasRef = useRef(null);
-  const animRef   = useRef(null);
+  const animRef = useRef(null);
   const particles = useRef([]);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const ParticleCanvas = () => {
     const ctx = canvas.getContext("2d");
 
     const resize = () => {
-      canvas.width  = window.innerWidth;
+      canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       init();
     };
@@ -37,16 +38,16 @@ const ParticleCanvas = () => {
     const init = () => {
       const count = Math.min(Math.floor((canvas.width * canvas.height) / 9000), 120);
       particles.current = Array.from({ length: count }, () => ({
-        x:       Math.random() * canvas.width,
-        y:       Math.random() * canvas.height,
-        r:       Math.random() * 1.6 + 0.3,
-        vx:      (Math.random() - 0.5) * 0.25,
-        vy:      (Math.random() - 0.5) * 0.25,
-        color:   COLORS[Math.floor(Math.random() * COLORS.length)],
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.6 + 0.3,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
         opacity: Math.random() * 0.5 + 0.15,
-        pulse:   Math.random() * Math.PI * 2,
+        pulse: Math.random() * Math.PI * 2,
         pulseSpeed: Math.random() * 0.015 + 0.008,
-        size:    Math.random() > 0.85 ? "star" : "dot",
+        size: Math.random() > 0.85 ? "star" : "dot",
       }));
     };
 
@@ -158,18 +159,18 @@ const StatItem = ({ value, suffix, label, inView, delay }) => (
    HERO AVATAR — right side with 3D mouse tracking
 ════════════════════════════════════════════════ */
 const HeroAvatar = () => {
-  const cardRef  = useRef(null);
-  const rotateX  = useMotionValue(0);
-  const rotateY  = useMotionValue(0);
-  const springX  = useSpring(rotateX, { stiffness: 100, damping: 20 });
-  const springY  = useSpring(rotateY, { stiffness: 100, damping: 20 });
+  const cardRef = useRef(null);
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const springX = useSpring(rotateX, { stiffness: 100, damping: 20 });
+  const springY = useSpring(rotateY, { stiffness: 100, damping: 20 });
 
   const handleMouseMove = useCallback((e) => {
     const rect = cardRef.current?.getBoundingClientRect();
     if (!rect) return;
     const cx = rect.left + rect.width / 2;
-    const cy = rect.top  + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width  / 2);
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
     rotateY.set(dx * 10);
     rotateX.set(-dy * 10);
@@ -236,7 +237,7 @@ const HeroAvatar = () => {
         <div className="w-full h-full bg-gradient-to-br from-surface via-surface-2 to-background flex items-center justify-center">
           {/* Try loading boy.png — graceful fallback */}
           <img
-            src="/src/assets/boy.png"
+            src={boyImage}
             alt="Deepak Singh"
             className="w-full h-full object-cover"
             onError={(e) => {
@@ -356,12 +357,12 @@ const Hero = () => {
 
   /* Stagger delays for left-side content */
   const delays = {
-    badge:    0.3,
+    badge: 0.3,
     headline: 0.5,
-    typing:   0.95,
+    typing: 0.95,
     subtitle: 1.15,
-    buttons:  1.35,
-    stats:    1.55,
+    buttons: 1.35,
+    stats: 1.55,
   };
 
   const fadeUp = (delay, duration = 0.65) => ({
