@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
-  FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck,
+  FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck, FiAlertCircle, FiRefreshCw,
 } from "react-icons/fi";
+import emailjs from "@emailjs/browser";
 
 /* ═══════════════════════════════════════════════════════════
    CONTACT INFO DATA
@@ -46,21 +47,28 @@ const INFO_ITEMS = [
   },
 ];
 
-const SERVICES_OPTIONS = [
-  "Custom Website",
-  "Landing Page",
-  "Portfolio",
-  "AI Chatbot",
-  "E-Commerce Store",
-  "SEO Optimization",
-  "Other",
+const GOAL_OPTIONS = [
+  "Launch a new website",
+  "Redesign existing website",
+  "Improve conversions / SEO",
+  "AI Chatbot / Automation",
+  "E-Commerce store",
+  "Other / Custom",
 ];
 
-const BUDGET_OPTIONS = [
-  "Under ₹10,000",
-  "₹10,000 – ₹25,000",
-  "₹25,000 – ₹50,000",
-  "₹50,000+",
+const TIMELINE_OPTIONS = [
+  "Urgent (less than 2 weeks)",
+  "2 – 4 weeks",
+  "1 – 2 months",
+  "Flexible / Ongoing",
+];
+
+const INVESTMENT_OPTIONS = [
+  "₹5k–10k",
+  "₹10k–25k",
+  "₹25k–50k",
+  "₹50k+",
+  "Prefer to discuss",
 ];
 
 /* ── Info Card ── */
@@ -140,10 +148,16 @@ const Contact = () => {
 
   /* ── Form state ── */
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", service: "", budget: "", details: "",
+    name: "",
+    email: "",
+    phone: "",
+    goal: "",
+    timeline: "",
+    investment: "",
+    details: "",
   });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | sending | sent
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -153,33 +167,31 @@ const Contact = () => {
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim())    errs.name    = "Name is required";
-    if (!form.email.trim())   errs.email   = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Enter a valid email";
-    if (!form.phone.trim())   errs.phone   = "Phone number is required";
-    if (!form.service)        errs.service = "Please select a service";
-    if (!form.budget)         errs.budget  = "Please select a budget range";
-    if (!form.details.trim()) errs.details = "Please describe your project";
+    if (!form.name.trim()) errs.name = "Name is required";
+    if (!form.email.trim()) {
+      errs.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      errs.email = "Enter a valid email";
+    }
+    if (!form.goal) errs.goal = "Please select your main goal";
+    if (!form.timeline) errs.timeline = "Please select your desired timeline";
+    if (!form.details.trim()) errs.details = "Please describe your project details";
     return errs;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-
-    setStatus("sending");
-
+  const getWhatsAppUrl = () => {
+    const header = status === "error" ? "Fallback Project Inquiry" : "New Project Inquiry";
     const msg =
 `Hello Deepak! 👋
 
-*New Project Inquiry*
+*${header}*
 ───────────────────
 👤 *Name:* ${form.name}
 📧 *Email:* ${form.email}
-📱 *Phone:* ${form.phone}
-🛠️ *Service:* ${form.service}
-💰 *Budget:* ${form.budget}
+📱 *Phone:* ${form.phone || "Not provided"}
+🎯 *Goal:* ${form.goal}
+⏱️ *Timeline:* ${form.timeline}
+💰 *Investment:* ${form.investment || "Prefer to discuss"}
 
 📋 *Project Details:*
 ${form.details}
@@ -187,16 +199,66 @@ ${form.details}
 Sent from DeepakWebStudio Portfolio`;
 
     const encoded = encodeURIComponent(msg);
-    const waUrl   = `https://wa.me/917011875494?text=${encoded}`;
+    return `https://wa.me/917011875494?text=${encoded}`;
+  };
 
-    setTimeout(() => {
-      setStatus("sent");
-      window.open(waUrl, "_blank");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (status === "sending") return;
+
+    const errs = validate();
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
+
+    setStatus("sending");
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    const hasConfig = serviceId && templateId && publicKey;
+
+    if (!hasConfig) {
+      if (import.meta.env.DEV) {
+        console.warn(
+          "EmailJS variables are missing. Displaying dev-only warning. Please configure VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY in your .env file."
+        );
+      }
+      // Simulate success in dev/fallback
       setTimeout(() => {
-        setStatus("idle");
-        setForm({ name: "", email: "", phone: "", service: "", budget: "", details: "" });
-      }, 4000);
-    }, 700);
+        setStatus("success");
+      }, 1500);
+      return;
+    }
+
+    const sendPromise = emailjs.send(
+      serviceId,
+      templateId,
+      {
+        name: form.name,
+        email: form.email,
+        phone: form.phone || "Not provided",
+        goal: form.goal,
+        timeline: form.timeline,
+        investment: form.investment || "Prefer to discuss / Not provided",
+        details: form.details,
+      },
+      publicKey
+    );
+
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout")), 8000)
+    );
+
+    try {
+      await Promise.race([sendPromise, timeoutPromise]);
+      setStatus("success");
+    } catch (err) {
+      console.error("Inquiry submission failed:", err);
+      setStatus("error");
+    }
   };
 
   /* Shared input style */
@@ -336,210 +398,338 @@ Sent from DeepakWebStudio Portfolio`;
                 style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(192,193,255,0.05) 0%, transparent 70%)" }}
               />
 
-              <h3 className="font-display font-bold text-white text-xl mb-8 relative">
-                Send Me a Message
-              </h3>
+              <AnimatePresence mode="wait">
+                {status === "success" ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex flex-col items-center text-center py-6 px-2"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+                      <FiCheck size={32} />
+                    </div>
+                    <h3 className="font-display font-bold text-white text-2xl mb-3">
+                      Inquiry Submitted!
+                    </h3>
+                    <p className="font-sans text-text-muted text-sm max-w-md mb-8 leading-relaxed">
+                      Thanks <span className="text-white font-semibold">{form.name}</span>! I have received your project details and will review them immediately. You can expect a response at <span className="text-white font-semibold">{form.email}</span> within 2 hours. ⚡
+                    </p>
 
-              <form onSubmit={handleSubmit} noValidate className="relative space-y-5">
+                    <div className="w-full space-y-4">
+                      <motion.a
+                        href={getWhatsAppUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-sans font-bold text-sm"
+                        style={{
+                          background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                          color: "white",
+                          boxShadow: "0 6px 24px rgba(16,185,129,0.3)",
+                        }}
+                      >
+                        Fast-Track via WhatsApp 💬
+                      </motion.a>
 
-                {/* Row 1: Name + Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="Rajesh Kumar"
-                      className="form-input"
-                      style={inputStyle("name")}
-                      onFocus={e => {
-                        e.target.style.borderColor = "rgba(192,193,255,0.45)";
-                        e.target.style.background  = "rgba(192,193,255,0.06)";
-                        e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
-                      }}
-                      onBlur={e => {
-                        e.target.style.borderColor = errors.name ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
-                        e.target.style.background  = errors.name ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
-                        e.target.style.boxShadow   = "none";
-                      }}
-                    />
-                    {errors.name && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.name}</p>}
-                  </div>
-                  <div>
-                    <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="you@company.com"
-                      className="form-input"
-                      style={inputStyle("email")}
-                      onFocus={e => {
-                        e.target.style.borderColor = "rgba(192,193,255,0.45)";
-                        e.target.style.background  = "rgba(192,193,255,0.06)";
-                        e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
-                      }}
-                      onBlur={e => {
-                        e.target.style.borderColor = errors.email ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
-                        e.target.style.background  = errors.email ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
-                        e.target.style.boxShadow   = "none";
-                      }}
-                    />
-                    {errors.email && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.email}</p>}
-                  </div>
-                </div>
+                      <motion.button
+                        onClick={() => {
+                          setStatus("idle");
+                          setForm({ name: "", email: "", phone: "", goal: "", timeline: "", investment: "", details: "" });
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full py-4 rounded-2xl font-sans font-semibold text-sm text-text-muted hover:text-white transition-colors border border-white/10 hover:border-white/20 bg-white/5"
+                      >
+                        Back to Portfolio
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ) : status === "error" ? (
+                  <motion.div
+                    key="error"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex flex-col items-center text-center py-6 px-2"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 mb-6 shadow-[0_0_30px_rgba(239,68,68,0.15)]">
+                      <FiAlertCircle size={32} />
+                    </div>
+                    <h3 className="font-display font-bold text-white text-2xl mb-3">
+                      Submission Failed
+                    </h3>
+                    <p className="font-sans text-text-muted text-sm max-w-md mb-8 leading-relaxed">
+                      We had trouble sending your email inquiry. Don't worry, you can still submit all your project details directly via WhatsApp!
+                    </p>
 
-                {/* Row 2: Phone */}
-                <div>
-                  <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="+91 98765 43210"
-                    className="form-input"
-                    style={inputStyle("phone")}
-                    onFocus={e => {
-                      e.target.style.borderColor = "rgba(192,193,255,0.45)";
-                      e.target.style.background  = "rgba(192,193,255,0.06)";
-                      e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
-                    }}
-                    onBlur={e => {
-                      e.target.style.borderColor = errors.phone ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
-                      e.target.style.background  = errors.phone ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
-                      e.target.style.boxShadow   = "none";
-                    }}
-                  />
-                  {errors.phone && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.phone}</p>}
-                </div>
+                    <div className="w-full space-y-4">
+                      <motion.a
+                        href={getWhatsAppUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-sans font-bold text-sm"
+                        style={{
+                          background: "linear-gradient(135deg, #c0c1ff 0%, #9394e0 100%)",
+                          color: "#051424",
+                          boxShadow: "0 6px 24px rgba(192,193,255,0.3)",
+                        }}
+                      >
+                        Send via WhatsApp 💬
+                      </motion.a>
 
-                {/* Row 3: Service + Budget */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
-                      Service Needed *
-                    </label>
-                    <select
-                      name="service"
-                      value={form.service}
-                      onChange={handleChange}
-                      style={selectStyle("service")}
-                    >
-                      <option value="" style={{ background: "#0d1c2d", color: "#8892a4" }}>Select a service…</option>
-                      {SERVICES_OPTIONS.map(s => (
-                        <option key={s} value={s} style={{ background: "#0d1c2d", color: "white" }}>{s}</option>
-                      ))}
-                    </select>
-                    {errors.service && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.service}</p>}
-                  </div>
-                  <div>
-                    <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
-                      Budget Range *
-                    </label>
-                    <select
-                      name="budget"
-                      value={form.budget}
-                      onChange={handleChange}
-                      style={selectStyle("budget")}
-                    >
-                      <option value="" style={{ background: "#0d1c2d", color: "#8892a4" }}>Select budget…</option>
-                      {BUDGET_OPTIONS.map(b => (
-                        <option key={b} value={b} style={{ background: "#0d1c2d", color: "white" }}>{b}</option>
-                      ))}
-                    </select>
-                    {errors.budget && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.budget}</p>}
-                  </div>
-                </div>
+                      <div className="flex gap-4 w-full">
+                        <motion.button
+                          onClick={() => setStatus("idle")}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1 py-4 rounded-2xl font-sans font-semibold text-sm text-white border border-white/10 hover:border-white/20 bg-white/5 flex items-center justify-center gap-2"
+                        >
+                          <FiRefreshCw size={14} />
+                          Try Again
+                        </motion.button>
 
-                {/* Row 4: Details */}
-                <div>
-                  <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
-                    Project Details *
-                  </label>
-                  <textarea
-                    name="details"
-                    value={form.details}
-                    onChange={handleChange}
-                    rows={5}
-                    placeholder="Tell me about your project — goals, features you need, timeline, and anything else that's important to you…"
-                    style={{
-                      ...inputStyle("details"),
-                      resize: "none",
-                      lineHeight: "1.7",
-                    }}
-                    onFocus={e => {
-                      e.target.style.borderColor = "rgba(192,193,255,0.45)";
-                      e.target.style.background  = "rgba(192,193,255,0.06)";
-                      e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
-                    }}
-                    onBlur={e => {
-                      e.target.style.borderColor = errors.details ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
-                      e.target.style.background  = errors.details ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
-                      e.target.style.boxShadow   = "none";
-                    }}
-                  />
-                  {errors.details && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.details}</p>}
-                </div>
+                        <motion.button
+                          onClick={() => {
+                            setStatus("idle");
+                            setForm({ name: "", email: "", phone: "", goal: "", timeline: "", investment: "", details: "" });
+                          }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1 py-4 rounded-2xl font-sans font-semibold text-sm text-text-muted hover:text-white transition-colors border border-white/10"
+                        >
+                          Cancel
+                        </motion.button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3 className="font-display font-bold text-white text-xl mb-8 relative">
+                      Send Me a Message
+                    </h3>
 
-                {/* Submit */}
-                <motion.button
-                  type="submit"
-                  disabled={status !== "idle"}
-                  whileHover={status === "idle" ? { scale: 1.02, y: -2 } : {}}
-                  whileTap={status === "idle" ? { scale: 0.98 } : {}}
-                  className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-sans font-bold text-sm"
-                  style={{
-                    background: status === "sent"
-                      ? "linear-gradient(135deg, #10b981 0%, #059669 100%)"
-                      : "linear-gradient(135deg, #c0c1ff 0%, #9394e0 100%)",
-                    color: "#051424",
-                    boxShadow: status === "sent"
-                      ? "0 6px 28px rgba(16,185,129,0.4)"
-                      : "0 6px 28px rgba(192,193,255,0.35)",
-                    opacity: status === "sending" ? 0.85 : 1,
-                    cursor: status !== "idle" ? "not-allowed" : "pointer",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  {status === "sending" && (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 rounded-full border-2"
-                        style={{ borderColor: "rgba(5,20,36,0.3)", borderTopColor: "#051424" }}
-                      />
-                      Opening WhatsApp…
-                    </>
-                  )}
-                  {status === "sent" && (
-                    <>
-                      <FiCheck size={18} />
-                      WhatsApp Opened! Check your browser.
-                    </>
-                  )}
-                  {status === "idle" && (
-                    <>
-                      <FiSend size={16} />
-                      Send Message on WhatsApp 💬
-                    </>
-                  )}
-                </motion.button>
+                    <form onSubmit={handleSubmit} noValidate className="relative space-y-5">
+                      {/* Row 1: Name + Email */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                          <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                            Full Name *
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={form.name}
+                            onChange={handleChange}
+                            placeholder="Rajesh Kumar"
+                            className="form-input"
+                            style={inputStyle("name")}
+                            onFocus={e => {
+                              e.target.style.borderColor = "rgba(192,193,255,0.45)";
+                              e.target.style.background  = "rgba(192,193,255,0.06)";
+                              e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
+                            }}
+                            onBlur={e => {
+                              e.target.style.borderColor = errors.name ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
+                              e.target.style.background  = errors.name ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
+                              e.target.style.boxShadow   = "none";
+                            }}
+                          />
+                          {errors.name && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.name}</p>}
+                        </div>
+                        <div>
+                          <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                            Email Address *
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            placeholder="you@company.com"
+                            className="form-input"
+                            style={inputStyle("email")}
+                            onFocus={e => {
+                              e.target.style.borderColor = "rgba(192,193,255,0.45)";
+                              e.target.style.background  = "rgba(192,193,255,0.06)";
+                              e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
+                            }}
+                            onBlur={e => {
+                              e.target.style.borderColor = errors.email ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
+                              e.target.style.background  = errors.email ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
+                              e.target.style.boxShadow   = "none";
+                            }}
+                          />
+                          {errors.email && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.email}</p>}
+                        </div>
+                      </div>
 
-                <p className="font-sans text-text-muted text-[11px] text-center">
-                  Your message will open in WhatsApp with all details pre-filled. No spam, ever. 🔒
-                </p>
-              </form>
+                      {/* Row 2: Phone */}
+                      <div>
+                        <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                          Phone / WhatsApp (Optional)
+                        </label>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={form.phone}
+                          onChange={handleChange}
+                          placeholder="+91 98765 43210"
+                          className="form-input"
+                          style={inputStyle("phone")}
+                          onFocus={e => {
+                            e.target.style.borderColor = "rgba(192,193,255,0.45)";
+                            e.target.style.background  = "rgba(192,193,255,0.06)";
+                            e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
+                          }}
+                          onBlur={e => {
+                            e.target.style.borderColor = errors.phone ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
+                            e.target.style.background  = errors.phone ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
+                            e.target.style.boxShadow   = "none";
+                          }}
+                        />
+                        {errors.phone && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.phone}</p>}
+                      </div>
+
+                      {/* Row 3: Goal + Timeline */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                          <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                            What is your main goal? *
+                          </label>
+                          <select
+                            name="goal"
+                            value={form.goal}
+                            onChange={handleChange}
+                            style={selectStyle("goal")}
+                          >
+                            <option value="" style={{ background: "#0d1c2d", color: "#8892a4" }}>Select a goal…</option>
+                            {GOAL_OPTIONS.map(g => (
+                              <option key={g} value={g} style={{ background: "#0d1c2d", color: "white" }}>{g}</option>
+                            ))}
+                          </select>
+                          {errors.goal && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.goal}</p>}
+                        </div>
+                        <div>
+                          <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                            Desired Timeline *
+                          </label>
+                          <select
+                            name="timeline"
+                            value={form.timeline}
+                            onChange={handleChange}
+                            style={selectStyle("timeline")}
+                          >
+                            <option value="" style={{ background: "#0d1c2d", color: "#8892a4" }}>Select timeline…</option>
+                            {TIMELINE_OPTIONS.map(t => (
+                              <option key={t} value={t} style={{ background: "#0d1c2d", color: "white" }}>{t}</option>
+                            ))}
+                          </select>
+                          {errors.timeline && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.timeline}</p>}
+                        </div>
+                      </div>
+
+                      {/* Row 4: Investment Range (Optional) */}
+                      <div>
+                        <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                          Investment Range (Optional)
+                        </label>
+                        <select
+                          name="investment"
+                          value={form.investment}
+                          onChange={handleChange}
+                          style={selectStyle("investment")}
+                        >
+                          <option value="" style={{ background: "#0d1c2d", color: "#8892a4" }}>Select investment range…</option>
+                          {INVESTMENT_OPTIONS.map(i => (
+                            <option key={i} value={i} style={{ background: "#0d1c2d", color: "white" }}>{i}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Row 5: Details */}
+                      <div>
+                        <label className="block font-sans text-[10px] font-bold text-text-muted uppercase tracking-widest mb-2">
+                          Project Details *
+                        </label>
+                        <textarea
+                          name="details"
+                          value={form.details}
+                          onChange={handleChange}
+                          rows={4}
+                          placeholder="Tell me about your project, target audience, and what you want to achieve..."
+                          style={{
+                            ...inputStyle("details"),
+                            resize: "none",
+                            lineHeight: "1.7",
+                          }}
+                          onFocus={e => {
+                            e.target.style.borderColor = "rgba(192,193,255,0.45)";
+                            e.target.style.background  = "rgba(192,193,255,0.06)";
+                            e.target.style.boxShadow   = "0 0 0 3px rgba(192,193,255,0.08)";
+                          }}
+                          onBlur={e => {
+                            e.target.style.borderColor = errors.details ? "rgba(239,68,68,0.45)" : "rgba(192,193,255,0.12)";
+                            e.target.style.background  = errors.details ? "rgba(239,68,68,0.06)" : "rgba(255,255,255,0.04)";
+                            e.target.style.boxShadow   = "none";
+                          }}
+                        />
+                        {errors.details && <p className="font-sans text-red-400 text-[11px] mt-1.5">{errors.details}</p>}
+                      </div>
+
+                      {/* Submit */}
+                      <motion.button
+                        type="submit"
+                        disabled={status === "sending"}
+                        whileHover={status === "idle" ? { scale: 1.02, y: -2 } : {}}
+                        whileTap={status === "idle" ? { scale: 0.98 } : {}}
+                        className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-sans font-bold text-sm"
+                        style={{
+                          background: "linear-gradient(135deg, #c0c1ff 0%, #9394e0 100%)",
+                          color: "#051424",
+                          boxShadow: "0 6px 28px rgba(192,193,255,0.35)",
+                          opacity: status === "sending" ? 0.85 : 1,
+                          cursor: status === "sending" ? "not-allowed" : "pointer",
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        {status === "sending" ? (
+                          <>
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+                              className="w-4 h-4 rounded-full border-2"
+                              style={{ borderColor: "rgba(5,20,36,0.3)", borderTopColor: "#051424" }}
+                            />
+                            Sending Inquiry…
+                          </>
+                        ) : (
+                          <>
+                            <FiSend size={16} />
+                            Submit Inquiry ⚡
+                          </>
+                        )}
+                      </motion.button>
+
+                      <p className="font-sans text-text-muted text-[11px] text-center">
+                        An email inquiry will be sent automatically. You can also chat on WhatsApp directly. 🔒
+                      </p>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 
