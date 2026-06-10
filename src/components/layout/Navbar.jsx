@@ -132,7 +132,7 @@ const Navbar = () => {
                 transition-shadow duration-300"
             >
               <FiZap size={14} className="shrink-0" />
-              Book a Call
+              Let's Talk
             </motion.a>
 
             {/* Hamburger */}
@@ -224,7 +224,7 @@ const Navbar = () => {
                   shadow-[0_4px_20px_rgba(192,193,255,0.25)]"
               >
                 <FiMessageCircle size={16} />
-                Book a Call on WhatsApp
+                KYA Baat Karein? Let's Chat!
               </motion.a>
             </motion.div>
           </>
