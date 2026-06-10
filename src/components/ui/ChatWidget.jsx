@@ -88,7 +88,7 @@ const getBotReply = (input, intentOverride) => {
         };
       case "contact":
         return {
-          text: "You can reach Deepak directly:\n\n📱 WhatsApp: +91 70118 75494\n📧 deepakwebstudio@gmail.com\n🌐 deepak-web-studio.lovable.app\n\nHe replies within 2 hours! Click below to open WhatsApp 👇",
+          text: "You can reach Deepak directly:\n\n📱 WhatsApp: +91 70118 75494\n📧 deepakwebstudio@gmail.com\n🌐 deepak-web-studio.lovable.app\n\nHe replies within 24 hours! Click below to open WhatsApp 👇",
           quickReplies: QR_AFTER_CONTACT,
           showWa: true,
         };
@@ -199,7 +199,7 @@ const getBotReply = (input, intentOverride) => {
 
   // ── Fallback ──
   return {
-    text: "That's a great question! 🤔 For the most accurate answer, I'd recommend reaching out to Deepak directly — he replies within 2 hours on WhatsApp! 💬\n\nOr pick one of the options below and I'll help right away:",
+    text: "That's a great question! 🤔 For the most accurate answer, I'd recommend reaching out to Deepak directly — he replies within 24 hours on WhatsApp! 💬\n\nOr pick one of the options below and I'll help right away:",
     quickReplies: QR_MAIN,
     showWa: true,
   };
