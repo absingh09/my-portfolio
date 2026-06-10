@@ -7,6 +7,7 @@ import CountUpRaw from "react-countup";
 const CountUp = typeof CountUpRaw === "function" ? CountUpRaw : (CountUpRaw.default || (() => null));
 import { useInView } from "react-intersection-observer";
 import { SOCIAL_LINKS } from "../../utils/constants";
+import { FiCalendar } from "react-icons/fi";
 
 /* ════════════════════════════════════════════════
    PARTICLE CANVAS
@@ -476,24 +477,27 @@ const Hero = () => {
 
               {/* Book a Call — WhatsApp */}
               <a
-                href={SOCIAL_LINKS.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full font-sans font-semibold text-sm text-primary
-                  border border-primary/35 bg-transparent
-                  hover:border-primary hover:bg-primary/10
-                  hover:-translate-y-0.5
-                  transition-all duration-300"
+              href="https://calendly.com/deepakwebstudio/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full font-sans font-semibold text-sm text-primary
+                border border-primary/35 bg-transparent
+                hover:border-primary hover:bg-primary/10
+                hover:-translate-y-0.5
+                transition-all duration-300"
+            >
+              <FiCalendar size={16} className="shrink-0" />
+             Book a Free 30-Min Call ✨
+              <svg
+                className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
               >
-                <FiMessageCircle size={16} className="shrink-0" />
-                Book a Call
-                <svg
-                  className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
-                  fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
             </motion.div>
 
             {/* 6. Trust stats */}
