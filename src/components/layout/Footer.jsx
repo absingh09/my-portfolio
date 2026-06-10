@@ -341,15 +341,16 @@ const Footer = () => {
                 </motion.li>
               ))}
               <motion.li variants={itemVariants}>
-                <a
-                  href={SOCIAL_LINKS.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-sans text-primary text-sm font-semibold hover:text-white transition-colors duration-300 flex items-center gap-2 group"
-                >
-                  <span className="w-1 h-1 rounded-full bg-primary group-hover:bg-white transition-colors duration-300 shrink-0" />
-                  Book a Call ✨
-                </a>
+               <a
+                href="https://calendly.com/deepakwebstudio/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans text-primary text-sm font-semibold hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                aria-label="Book a free 30-minute strategy call"
+              >
+                <span className="w-1 h-1 rounded-full bg-primary group-hover:bg-white transition-colors duration-300 shrink-0" />
+                Book a Free 30-Min Call ✨
+              </a>
               </motion.li>
             </ul>
           </motion.div>
